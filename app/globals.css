@@ -1,4 +1,4 @@
-:root {
+:root[data-theme="light"] {
   --bg: #ffffff;
   --bg-surface: #f7f7f8;
   --text: #171717;
@@ -6,15 +6,13 @@
   --border: #e5e7eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0a0a0a;
-    --bg-surface: #141414;
-    --text: #ededed;
-    --text-muted: #9ca3af;
-    --border: #262626;
-  }
-} /* all colors needed to start up */
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --bg-surface: #141414;
+  --text: #ededed;
+  --text-muted: #9ca3af;
+  --border: #262626;
+}
 
 * {
   box-sizing: border-box;
@@ -27,8 +25,8 @@ body {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

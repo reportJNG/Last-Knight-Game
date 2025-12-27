@@ -1,9 +1,8 @@
 
+import Main from "./Home-page/Main"
 export default function Page(){
 
   return(
-    <div>
-
-    </div>
+    <Main/>
   )
 }

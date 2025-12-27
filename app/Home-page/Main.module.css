@@ -1,0 +1,178 @@
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css');
+.container {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.upper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 1rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-surface);
+}
+
+.soundbtn {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--bg);
+}
+
+.soundbtn:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.soundbtn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.gamename {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.bigbuttonevents {
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: var(--bg-surface);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bigbuttonevents::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.bigbuttonevents:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bigbuttonevents:hover::before {
+  animation: shimmer 1.5s infinite;
+}
+
+.bigbuttonevents:active {
+  transform: translateY(-1px);
+}
+
+.bigbuttonevents span {
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.bigbuttonevents:hover span {
+  transform: scale(1.2);
+}
+
+
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gamename {
+    font-size: 2.2rem;
+  }
+  
+  .bigbuttonevents {
+    font-size: 1.2rem;
+    padding: 1.2rem;
+  }
+  
+  .bigbuttonevents span {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .upper {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .gamename {
+    font-size: 1.8rem;
+  }
+  
+  .soundbtn {
+    left: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  .main {
+    padding: 2rem 1rem;
+  }
+  
+  .bigbuttonevents {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+}
