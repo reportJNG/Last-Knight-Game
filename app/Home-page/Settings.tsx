@@ -6,9 +6,11 @@ import { ThemeContext } from '../Components/ThemeProvider';
 interface Settingsprops {
     close: () => void;
     saved: () => void;
+    volume:number;
+    setVolume:React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Settings({ close, saved }: Settingsprops) {
+export default function Settings({ close, saved,volume,setVolume }: Settingsprops) {
     const tcontext = useContext(ThemeContext);
     if (!tcontext) return null;
     const { theme, setTheme } = tcontext;
@@ -31,10 +33,12 @@ export default function Settings({ close, saved }: Settingsprops) {
                     <input 
                         type="range" 
                         min="0" 
-                        max="100" 
-                        defaultValue="70"
+                        max="1" 
+                        step={0.01}
+                        defaultValue={volume}
+                        onChange={(e)=>setVolume(Number(e.target.value))}
                         className={styles.volumeSlider}
-                    />      {/**here only need to add the music logic */}
+                    />   
                 </div>
                 
                 <div className={styles.section}>

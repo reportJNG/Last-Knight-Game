@@ -1,7 +1,7 @@
 :root[data-theme="light"] {
   --bg: #ffffff;
   --bg-surface: #f7f7f8;
-  --text: #171717;
+  --text: #000000;
   --text-muted: #6b7280;
   --border: #e5e7eb;
 }
