@@ -1,6 +1,6 @@
 import styles from './Getname.module.css';
 import { useState } from 'react';
-
+import { Player } from '../Types/Player';
 
 export default function Getname(){
 const [step1,setStep1]=useState<boolean>(true);
@@ -11,6 +11,8 @@ const [name,setName]=useState<string>('');
 const [classs,setClasss]=useState<string>('Knight');
 const [gender,setGender]=useState<string>('Male');
 const Classes:string[] = ["Knight", "Sorcerer", "Handed", "Thief"];
+const rareitem:string[]=["Wepon","Book","Key","Attack Power","Health","Speed Attack"];
+const [Plyer,setPlayer]=useState<Player|null>(null);
 const Typec:string[]=['Male','Female'];
 
 const reset =()=>{
