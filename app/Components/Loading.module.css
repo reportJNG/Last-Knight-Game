@@ -1,0 +1,250 @@
+/* Loading.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* Level text styling with dramatic effect */
+.text {
+  position: absolute;
+  top: 30%;
+  text-align: center;
+  z-index: 10;
+}
+
+.textmidscreen {
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 
+    0 0 10px rgba(139, 0, 0, 0.5),
+    0 0 20px rgba(139, 0, 0, 0.3),
+    0 0 30px rgba(139, 0, 0, 0.2);
+  animation: textGlitch 3s infinite alternate;
+  position: relative;
+}
+
+.textmidscreen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.1), transparent);
+  animation: scanline 2s linear infinite;
+}
+
+/* Loading track - the empty line container */
+.loadingTrack {
+  position: absolute;
+  top: 50%;
+  width: 80%;
+  max-width: 600px;
+  height: 12px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--border) 5%, 
+    var(--border) 95%, 
+    transparent 100%);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* The blood filling animation */
+.loadingBlood {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, 
+    #4a0000 0%, 
+    #8b0000 30%, 
+    #b22222 50%, 
+    #8b0000 70%, 
+    #4a0000 100%);
+  border-radius: 6px;
+  animation: bloodFill 5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  box-shadow: 
+    0 0 20px rgba(139, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Blood drip effect at the end */
+.loadingDrip {
+  position: absolute;
+  top: 12px;
+  right: -5px;
+  width: 10px;
+  height: 20px;
+  background: linear-gradient(180deg, #8b0000 0%, #4a0000 100%);
+  border-radius: 0 0 5px 5px;
+  animation: bloodDrip 0.8s 4.9s forwards;
+  opacity: 0;
+}
+
+/* Glow effect for the loading bar */
+.loadingGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(139, 0, 0, 0.3) 0%, transparent 70%);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Loading text under the bar */
+.underloadingscreen {
+  position: absolute;
+  top: calc(50% + 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loadingText {
+  font-size: 1.2rem;
+  letter-spacing: 0.5em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 300;
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+.loadingDots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-muted);
+  border-radius: 50%;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Animations */
+@keyframes bloodFill {
+  0% {
+    width: 0%;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(139, 0, 0, 0.8);
+  }
+  100% {
+    width: 100%;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.7);
+  }
+}
+
+@keyframes bloodDrip {
+  0% {
+    height: 0px;
+    opacity: 1;
+  }
+  100% {
+    height: 20px;
+    opacity: 1;
+  }
+}
+
+@keyframes textGlitch {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  5% {
+    transform: translateX(-2px);
+    color: #b22222;
+  }
+  10% {
+    transform: translateX(2px);
+    color: var(--text);
+  }
+  15% {
+    transform: translateX(-1px);
+  }
+  20% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes dotPulse {
+  0%, 60%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  30% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .textmidscreen {
+    font-size: 3rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .loadingTrack {
+    width: 90%;
+    height: 8px;
+  }
+  
+  .loadingText {
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+  }
+}

@@ -6,7 +6,8 @@ import Settings from './Settings';
 import Quit from './Quit';
 import Message from '../Components/Message';
 import PixelSnow from './PixelSnow';
-
+import Loading from '../Components/Loading';
+import { useRouter } from 'next/navigation';
 export default function Main() {
   const [Sound, setSound] = useState<boolean>(true);
   const [howtoplay, setHowtoplay] = useState<boolean>(false);
@@ -14,7 +15,8 @@ export default function Main() {
   const [quit, setQuit] = useState<boolean>(false);
   const [goodtxt, setGoodtxt] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
-  
+  const [playing,setPlaying]=useState<boolean>(false);
+  const [gettingname,setGettingname]=useState<boolean>(false);
   const savedhandler = () => {
     setSetting(false);
     audioRefC.current?.play();
@@ -48,6 +50,20 @@ export default function Main() {
     }
   }, [volume]);
 
+  const routes=useRouter();
+  const started=()=>{
+    setPlaying(true);
+    if(!Sound){
+      audioRef.current?.play();
+    }
+    const time = setTimeout(() => {
+      setGettingname(true);
+                            }, 5000);
+    
+        
+    return ()=>clearTimeout(time);
+  }
+
   return (
     <div className={styles.mainWrapper}>
       {/* PixelSnow as the ONLY background */}
@@ -65,7 +81,7 @@ export default function Main() {
       </div>
       
       {/* Main content - transparent over PixelSnow */}
-      <div className={styles.contentWrapper}>
+      {!playing&&<div className={styles.contentWrapper}>
         <div className={styles.container}>
           <div className={styles.upper}>
             <button 
@@ -79,7 +95,7 @@ export default function Main() {
           </div>
           
           <div className={styles.main}>
-            <button className={styles.bigbuttonevents}>
+            <button className={styles.bigbuttonevents} onClick={started}>
               <i className="fi fi-sr-two-swords"></i>Begin Quest
             </button>
             <button 
@@ -132,7 +148,13 @@ export default function Main() {
             
           )}
           
-          <audio 
+          
+        </div>
+      </div>}
+      {
+        playing&&<Loading level={null}/>
+      }
+      <audio 
             autoPlay
             ref={audioRef} 
             src="/Mainmenu.mp3" 
@@ -144,8 +166,6 @@ export default function Main() {
             src="/Click.mp3"
             hidden 
           />
-        </div>
-      </div>
     </div>
   );
 }
