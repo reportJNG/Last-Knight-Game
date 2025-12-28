@@ -75,7 +75,7 @@ export default function Main() {
             >
               {Sound ? "🔊" : "🔇"}
             </button>
-            <h1 className={styles.gamename}>The Last Knight</h1>
+            <h1 className={styles.gamename} data-text="Last Knight">Last Knight</h1>
           </div>
           
           <div className={styles.main}>
