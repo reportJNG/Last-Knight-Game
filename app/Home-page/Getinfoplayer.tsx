@@ -7,23 +7,30 @@ const [step1,setStep1]=useState<boolean>(true);
 const [step2,setStep2]=useState<boolean>(false);
 const [step3,setStep3]=useState<boolean>(false);
 const[step4,setStep4]=useState<boolean>(false);
+const[step5,setStep5]=useState<boolean>(false);
 const [name,setName]=useState<string>('');
 const [classs,setClasss]=useState<string>('Knight');
 const [gender,setGender]=useState<string>('Male');
+const [item,setItem]=useState<string>('Key');
 const Classes:string[] = ["Knight", "Sorcerer", "Handed", "Thief"];
 const rareitem:string[]=["Wepon","Book","Key","Attack Power","Health","Speed Attack"];
 const [Plyer,setPlayer]=useState<Player|null>(null);
 const Typec:string[]=['Male','Female'];
 
 const reset =()=>{
-    setStep4(false);
+    setStep5(false);
     setName('');
     setClasss('Knight');
     setGender('Male');
     setStep1(true);
 }
 const done=()=>{
-    setStep4(false);
+    setStep5(false);
+    setPlayer(prev=>({...prev,name:name, class:classs,gender:gender,rareitem:item,stats:{level:1,attack:1,health:1,speed:1}})) //here to push level player stats we need fuction that does handle the 4 classes
+    setName('');
+    setClasss('Knight');
+    setGender('Male');
+    setStep1(true);
 }
     return(
         <div className={styles.container}>
@@ -55,20 +62,37 @@ const done=()=>{
                 </div>
             </div>
         }{/** this is super good we put same logic mid screen the to bit right the inputs such good looking and switch animation btween steps */}
-        {
-            step4&& 
+        
+        {step4&&
+
             <div className={styles.step4}>
                 <input type="text" name='Name' id='Name'  value={name} disabled readOnly className={styles.noteditable}/> 
                 <input type="text" name='Class' id='Class'  value={classs} disabled readOnly className={styles.noteditable}/> 
                 <input type="text" name='Gender' id='Gender'  value={gender} disabled readOnly className={styles.noteditable}/> 
             <div className={styles.main}>
+            <h2 className={styles.text}>Choose Bonus Item</h2>
+            {rareitem.map((val,i)=>(
+                    <button className={styles.buttontype} key={i} onClick={()=>setItem(val)}>{val}</button>
+                ))}
+            <button className={styles.genderbtn} onClick={()=>{setStep3(false);setStep4(true)}}>Submit</button>
+            </div>
+            </div>}
+        
+            {step5&& 
+            <div className={styles.step5}>
+                <input type="text" name='Name' id='Name'  value={name} disabled readOnly className={styles.noteditable}/> 
+                <input type="text" name='Class' id='Class'  value={classs} disabled readOnly className={styles.noteditable}/> 
+                <input type="text" name='Gender' id='Gender'  value={gender} disabled readOnly className={styles.noteditable}/> 
+                <input type="text" name='Item' id='Item'  value={item} disabled readOnly className={styles.Item}/> 
+            <div className={styles.main}>
             <h2 className={styles.text}>Are You sure?</h2>
+            <p className={styles.comment}>If you cancle all your charchter will be gone</p>
             <button className={styles.yesbutton} onClick={done}>Yes</button>
             <button className={styles.resetbutton} onClick={reset}>Rest Stats</button>
             </div>
             </div>
             
-        }
+        } {/**final checking version */}
         </div>
     )
 }
