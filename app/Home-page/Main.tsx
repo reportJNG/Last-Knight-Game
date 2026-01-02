@@ -7,16 +7,33 @@ import Quit from './Quit';
 import Message from '../Components/Message';
 import PixelSnow from './PixelSnow';
 import Loading from '../Components/Loading';
-import { useRouter } from 'next/navigation';
+import { Player } from '../Types/Player';
+import Getname from './Getinfoplayer';
+const defaultPlayer: Player = {
+    name: "",
+    class: "Knight",
+    gender: "Male",
+    rareitem: "",
+    stats: {
+        level: 1,
+        health: 100,
+        attack: 50,
+        speed: 5
+    }
+  };
+
 export default function Main() {
-  const [Sound, setSound] = useState<boolean>(true);
+  const [Sound, setSound] = useState<boolean>(false);
   const [howtoplay, setHowtoplay] = useState<boolean>(false);
   const [Setting, setSetting] = useState<boolean>(false);
   const [quit, setQuit] = useState<boolean>(false);
   const [goodtxt, setGoodtxt] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
-  const [playing,setPlaying]=useState<boolean>(false);
+  const [playing,setPlaying]=useState<boolean>(false);  
+  const [player, setPlayer] = useState<Player>(defaultPlayer);
   const [gettingname,setGettingname]=useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRefC = useRef<HTMLAudioElement>(null);
   const savedhandler = () => {
     setSetting(false);
     audioRefC.current?.play();
@@ -28,11 +45,11 @@ export default function Main() {
   }
    useEffect(() => {
     if (audioRefC.current) {
-      audioRefC.current.playbackRate = 2.2; 
+      audioRefC.current.playbackRate = 2.1; 
+      
     }
   }, []);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const audioRefC = useRef<HTMLAudioElement>(null);
+  
   const toggleaudio = () => {
     if (audioRef.current) {
       if (Sound) {
@@ -43,14 +60,13 @@ export default function Main() {
     }
     setSound(prev => !prev);
   }
-  
+
   useEffect(() => { 
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
   }, [volume]);
 
-  const routes=useRouter();
   const started=()=>{
     setPlaying(true);
     if(!Sound){
@@ -58,6 +74,7 @@ export default function Main() {
     }
     const time = setTimeout(() => {
       setGettingname(true);
+      setPlaying(false);
                             }, 5000);
     
         
@@ -81,7 +98,7 @@ export default function Main() {
       </div>
       
       {/* Main content - transparent over PixelSnow */}
-      {!playing&&<div className={styles.contentWrapper}>
+      {!playing&&!gettingname&&<div className={styles.contentWrapper}>
         <div className={styles.container}>
           <div className={styles.upper}>
             <button 
@@ -153,6 +170,9 @@ export default function Main() {
       </div>}
       {
         playing&&<Loading level={null}/>
+      }
+      {
+        gettingname&&<Getname player={player} setPlayer={setPlayer} Quit={()=>setGettingname(false)} Created={()=>setGettingname(false)}/>
       }
       <audio 
             autoPlay

@@ -1,0 +1,1455 @@
+/* ===== BASE STYLES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&family=Uncial+Antiqua&family=Cardo:wght@400;700&family=Macondo&display=swap');
+
+:root {
+    --gold-primary: #d4af37;
+    --gold-secondary: #f4d03f;
+    --gold-dark: #b8860b;
+    --blood-red: #8b0000;
+    --dark-red: #660000;
+    --stone-dark: #1a1a1a;
+    --stone-medium: #2c2c2c;
+    --stone-light: #404040;
+    --parchment: #f5e6d3;
+    --ember: #ff4500;
+    --shadow-dark: rgba(0, 0, 0, 0.9);
+    --shadow-light: rgba(212, 175, 55, 0.4);
+    --glow-gold: rgba(212, 175, 55, 0.3);
+    --glow-red: rgba(139, 0, 0, 0.3);
+}
+
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0c0c0c 100%),
+        radial-gradient(circle at 20% 80%, rgba(60, 30, 0, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(40, 20, 0, 0.4) 0%, transparent 50%);
+    color: var(--gold-primary);
+    font-family: 'Cardo', 'Times New Roman', serif;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+/* ===== BACKGROUND ELEMENTS ===== */
+.backgroundWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.stonePattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, transparent 1px, rgba(60, 60, 60, 0.1) 1px),
+        radial-gradient(circle at 90% 80%, transparent 1px, rgba(60, 60, 60, 0.1) 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+}
+
+.fogLayer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(100, 100, 100, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(80, 80, 80, 0.1) 0%, transparent 50%);
+    animation: fogFloat 40s infinite linear;
+    opacity: 0.4;
+}
+
+.embers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 15% 25%, var(--ember) 50%, transparent),
+        radial-gradient(2px 2px at 85% 75%, var(--ember) 50%, transparent),
+        radial-gradient(2px 2px at 40% 60%, var(--ember) 50%, transparent);
+    animation: emberFloat 30s infinite linear;
+    opacity: 0.4;
+}
+
+.cathedralLight {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(180deg, 
+        transparent 0%,
+        rgba(212, 175, 55, 0.05) 20%,
+        transparent 40%);
+    pointer-events: none;
+}
+
+/* ===== MEDIEVAL FRAME ===== */
+.medievalFrame {
+    position: relative;
+    height: 600px;
+    width: auto;
+    background: rgba(15, 15, 15, 0.85);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 
+        0 0 100px rgba(0, 0, 0, 0.9),
+        inset 0 0 80px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.frameTop, .frameBottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        transparent,
+        var(--gold-primary),
+        var(--gold-secondary),
+        var(--gold-primary),
+        transparent);
+}
+
+.frameTop {
+    top: 0;
+}
+
+.frameBottom {
+    bottom: 0;
+}
+
+.frameLeft, .frameRight {
+    position: absolute;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, 
+        transparent,
+        var(--gold-primary),
+        var(--gold-secondary),
+        var(--gold-primary),
+        transparent);
+}
+
+.frameLeft {
+    left: 0;
+}
+
+.frameRight {
+    right: 0;
+}
+
+.cornerOrnament {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: 
+        radial-gradient(circle at center, var(--gold-primary) 2px, transparent 3px),
+        linear-gradient(45deg, transparent 45%, var(--gold-primary) 50%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, var(--gold-primary) 50%, transparent 55%);
+    opacity: 0.6;
+}
+
+.topLeft {
+    top: 10px;
+    left: 10px;
+}
+
+.topRight {
+    top: 10px;
+    right: 10px;
+}
+
+.bottomLeft {
+    bottom: 10px;
+    left: 10px;
+}
+
+.bottomRight {
+    bottom: 10px;
+    right: 10px;
+}
+
+/* ===== CONTENT AREA ===== */
+.contentArea {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* ===== PROGRESS INDICATOR ===== */
+.progressContainer {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.progressSteps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.progressSteps::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(212, 175, 55, 0.3),
+        rgba(212, 175, 55, 0.1),
+        rgba(212, 175, 55, 0.1),
+        rgba(212, 175, 55, 0.3));
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.stepIndicator {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+    transition: all 0.3s ease;
+}
+
+.stepNumber {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 20, 20, 0.9);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 1.4rem;
+    color: rgba(212, 175, 55, 0.7);
+    transition: all 0.3s ease;
+}
+
+.stepLabel {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: rgba(212, 175, 55, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.activeStep .stepNumber {
+    background: var(--gold-primary);
+    border-color: var(--gold-secondary);
+    color: #000;
+    box-shadow: 0 0 20px var(--glow-gold);
+}
+
+.activeStep .stepLabel {
+    color: var(--gold-secondary);
+    text-shadow: 0 0 10px var(--glow-gold);
+}
+
+.stepConnector {
+    flex: 1;
+    height: 2px;
+    background: rgba(212, 175, 55, 0.1);
+    margin: 0 10px;
+}
+
+/* ===== STEP SECTIONS ===== */
+.stepsContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.stepSection, .reviewSection {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.sectionTitle, .reviewTitle {
+    font-family: 'Macondo', cursive;
+    font-size: 2.5rem;
+    color: var(--gold-primary);
+    margin-bottom: 15px;
+    text-shadow: 
+        2px 2px 4px var(--shadow-dark),
+        0 0 20px var(--glow-gold);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.titleAccent {
+    color: var(--gold-secondary);
+    font-size: 2rem;
+    opacity: 0.7;
+}
+
+.sectionSubtitle, .reviewSubtitle {
+    font-size: 1.2rem;
+    color: rgba(212, 175, 55, 0.8);
+    font-style: italic;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ===== NAME INPUT ===== */
+.inputSection {
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+.inputField {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.nameInput {
+    width: 100%;
+    padding: 25px 40px;
+    background: rgba(10, 10, 10, 0.9);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    color: var(--gold-primary);
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.8rem;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.nameInput:focus {
+    border-color: var(--gold-primary);
+    background: rgba(20, 20, 20, 0.95);
+    box-shadow: 0 0 40px var(--glow-gold);
+}
+
+.nameInput::placeholder {
+    color: rgba(212, 175, 55, 0.4);
+    font-style: italic;
+}
+
+.inputDecorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.inputBorderTop, .inputBorderBottom {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent,
+        var(--gold-primary),
+        transparent);
+}
+
+.inputBorderTop {
+    top: 0;
+}
+
+.inputBorderBottom {
+    bottom: 0;
+}
+
+.inputGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, 
+        rgba(212, 175, 55, 0.1) 0%,
+        transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nameInput:focus ~ .inputDecorations .inputGlow {
+    opacity: 1;
+}
+
+.inputCounter {
+    text-align: right;
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: rgba(212, 175, 55, 0.6);
+}
+
+/* ===== CLASS SELECTION ===== */
+.classesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.classCard {
+    position: relative;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(10, 10, 10, 0.9));
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 30px 20px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-align: center;
+    overflow: hidden;
+}
+
+.classCard:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.classSelected {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, rgba(40, 30, 10, 0.9), rgba(20, 15, 5, 0.9));
+    box-shadow: 
+        0 0 30px var(--glow-gold),
+        inset 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+.classIcon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+.className {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--gold-primary);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.classStatsPreview {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.statPreview {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    min-width: 60px;
+}
+
+.statPreview span:first-child {
+    font-size: 0.8rem;
+    color: rgba(212, 175, 55, 0.6);
+    font-family: 'Cinzel', serif;
+}
+
+.statPreview span:last-child {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--gold-primary);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.classGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+        rgba(212, 175, 55, 0.1) 0%,
+        transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.classSelected .classGlow {
+    opacity: 1;
+}
+
+/* ===== GENDER SELECTION ===== */
+.genderSelection {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.genderCard {
+    position: relative;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(10, 10, 10, 0.9));
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 30px;
+    
+    cursor: pointer;
+    width: 300px;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+.genderCard:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.genderSelected {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, rgba(40, 30, 10, 0.9), rgba(20, 15, 5, 0.9));
+    box-shadow: 0 0 40px var(--glow-gold);
+}
+
+.genderIcon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+}
+
+.genderName {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--gold-primary);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ===== ITEM SELECTION ===== */
+.itemsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.itemCard {
+    position: relative;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(10, 10, 10, 0.9));
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    padding: 25px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.itemCard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.4);
+    background: linear-gradient(145deg, rgba(40, 40, 40, 0.9), rgba(20, 20, 20, 0.9));
+}
+
+.itemSelected {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, rgba(40, 30, 10, 0.9), rgba(20, 15, 5, 0.9));
+    box-shadow: 0 0 25px var(--glow-gold);
+}
+
+.itemIcon {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+.itemName {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--gold-primary);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.itemRarity {
+    color: var(--gold-secondary);
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+/* ===== REVIEW SECTION ===== */
+.reviewContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 30px 0;
+}
+
+.characterSummary {
+    background: rgba(15, 15, 15, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.summaryHeader {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.summaryTitle {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 1.8rem;
+    color: var(--gold-primary);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px var(--glow-gold);
+}
+
+.summaryDivider {
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent,
+        var(--gold-primary),
+        transparent);
+    margin: 0 auto;
+    width: 80%;
+}
+
+.summaryFields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.summaryField {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+}
+
+.fieldLabel {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: rgba(212, 175, 55, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    min-width: 150px;
+}
+
+.fieldValue {
+    flex: 1;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.4rem;
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.fieldIcon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+}
+
+.summaryActions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.confirmButton, .resetButton {
+    position: relative;
+    padding: 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.confirmButton {
+    background: linear-gradient(145deg, rgba(20, 40, 10, 0.9), rgba(10, 20, 5, 0.9));
+    color: #2e8b57;
+    border: 2px solid #2e8b57;
+}
+
+.confirmButton:hover {
+    background: linear-gradient(145deg, rgba(30, 50, 15, 0.9), rgba(20, 30, 10, 0.9));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+}
+
+.resetButton {
+    background: linear-gradient(145deg, rgba(40, 30, 10, 0.9), rgba(20, 15, 5, 0.9));
+    color: var(--gold-dark);
+    border: 2px solid var(--gold-dark);
+}
+
+.resetButton:hover {
+    background: linear-gradient(145deg, rgba(50, 40, 15, 0.9), rgba(30, 25, 10, 0.9));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--glow-gold);
+}
+
+.confirmIcon, .resetIcon {
+    font-size: 1.5rem;
+}
+
+.confirmGlow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+        rgba(46, 139, 87, 0.2), 
+        transparent);
+    opacity: 0;
+    animation: pulseGlow 2s infinite;
+}
+
+/* ===== CHARACTER VISUALIZATION ===== */
+.characterVisual {
+    background: rgba(15, 15, 15, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.characterModelContainer {
+    position: relative;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.characterModel {
+    position: relative;
+    width: 180px;
+    height: 280px;
+}
+
+.modelBase {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+}
+
+.modelHead {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 60px;
+    background: linear-gradient(to bottom, #444, #333);
+    border-radius: 40% 40% 50% 50%;
+    border: 3px solid rgba(212, 175, 55, 0.4);
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.male .modelHead {
+    width: 55px;
+    height: 65px;
+}
+
+.female .modelHead {
+    width: 45px;
+    height: 55px;
+    border-radius: 45% 45% 50% 50%;
+}
+
+.modelTorso {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 90px;
+    background: linear-gradient(to bottom, #555, #444);
+    border: 3px solid rgba(212, 175, 55, 0.4);
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.male .modelTorso {
+    width: 90px;
+}
+
+.female .modelTorso {
+    width: 70px;
+}
+
+.knight .modelTorso::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid rgba(212, 175, 55, 0.6);
+    border-radius: 8px;
+}
+
+.sorcerer .modelHead::before {
+    content: '🔮';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+.modelArms {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 15px;
+    background: linear-gradient(90deg, #444, #555, #444);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+}
+
+.modelLegs {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 80px;
+    background: linear-gradient(to bottom, #444, #333);
+    border: 3px solid rgba(212, 175, 55, 0.4);
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+}
+
+.male .modelLegs {
+    width: 80px;
+}
+
+.female .modelLegs {
+    width: 60px;
+    clip-path: polygon(10% 0, 90% 0, 70% 100%, 30% 100%);
+}
+
+.modelWeapon {
+    position: absolute;
+    top: 45%;
+    right: -50px;
+    width: 80px;
+    height: 15px;
+    background: linear-gradient(90deg, #666, #888, #666);
+    border: 2px solid rgba(212, 175, 55, 0.5);
+    transform: rotate(45deg);
+    border-radius: 4px;
+}
+
+.modelAura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, 
+        rgba(212, 175, 55, 0.15) 0%,
+        rgba(212, 175, 55, 0.05) 40%,
+        transparent 70%);
+    animation: auraPulse 3s infinite ease-in-out;
+}
+
+.modelShadow {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, 
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 70%);
+    filter: blur(10px);
+}
+
+.modelPlatform {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 15px;
+    background: linear-gradient(to bottom, #222, #111);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== STATS DISPLAY ===== */
+.characterStats {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    padding: 25px;
+    height: 650px;
+}
+
+.statsTitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    color: var(--gold-primary);
+    text-align: center;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.statsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.statRow {
+    display: grid;
+    grid-template-columns: 100px 1fr 60px;
+    align-items: center;
+    gap: 15px;
+}
+
+.statName {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: rgba(212, 175, 55, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.statBar {
+    flex: 1;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.statFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
+    border-radius: 5px;
+    transition: width 1s ease-out;
+}
+
+.statValue {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--gold-primary);
+    text-align: center;
+    min-width: 60px;
+}
+
+/* ===== BUTTONS ===== */
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.primaryButton, .secondaryButton {
+    position: relative;
+    padding: 18px 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: 2px solid;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    overflow: hidden;
+}
+
+.primaryButton {
+    background: linear-gradient(145deg, rgba(40, 30, 10, 0.9), rgba(20, 15, 5, 0.9));
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.primaryButton:hover:not(.buttonDisabled) {
+    background: linear-gradient(145deg, rgba(50, 40, 15, 0.9), rgba(30, 25, 10, 0.9));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--glow-gold);
+}
+
+.secondaryButton {
+    background: linear-gradient(145deg, rgba(40, 10, 10, 0.9), rgba(20, 5, 5, 0.9));
+    border-color: var(--blood-red);
+    color: var(--blood-red);
+}
+
+.secondaryButton:hover {
+    background: linear-gradient(145deg, rgba(50, 15, 15, 0.9), rgba(30, 10, 10, 0.9));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--glow-red);
+}
+
+.buttonDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.buttonText {
+    position: relative;
+    z-index: 1;
+}
+
+.buttonIcon {
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== EXIT BUTTON ===== */
+.exitButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 25px;
+    background: rgba(20, 5, 5, 0.8);
+    border: 1px solid var(--blood-red);
+    color: var(--blood-red);
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.exitButton:hover {
+    background: rgba(139, 0, 0, 0.3);
+    border-color: #ff0000;
+    color: #ff0000;
+    transform: scale(1.05);
+}
+
+.exitIcon {
+    font-size: 1.2rem;
+}
+
+/* ===== AMBIENT ELEMENTS ===== */
+.ambientParticles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 5% 10%, rgba(212, 175, 55, 0.4), transparent),
+        radial-gradient(2px 2px at 95% 90%, rgba(212, 175, 55, 0.4), transparent),
+        radial-gradient(2px 2px at 30% 70%, rgba(212, 175, 55, 0.4), transparent);
+    animation: particlesFloat 40s infinite linear;
+    pointer-events: none;
+}
+
+.scrollDeco {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent,
+        rgba(212, 175, 55, 0.5),
+        rgba(212, 175, 55, 0.5),
+        transparent);
+    animation: scrollHint 2s infinite ease-in-out;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fogFloat {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(100px, 50px); }
+}
+
+@keyframes emberFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-1000px) rotate(360deg); }
+}
+
+@keyframes particlesFloat {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100px, -50px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auraPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes scrollHint {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .reviewContent {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .characterModelContainer {
+        height: 250px;
+    }
+    
+    .medievalFrame {
+        width: 98%;
+        height: 95vh;
+        margin: 2.5vh auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .sectionTitle, .reviewTitle {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .classesGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .genderSelection {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .genderCard {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .progressSteps {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .progressSteps::before {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .contentArea {
+        padding: 20px;
+    }
+    
+    .stepSection, .reviewSection {
+        padding: 15px;
+    }
+    
+    .classesGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .itemsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .buttonGroup {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .primaryButton, .secondaryButton {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .statRow {
+        grid-template-columns: 80px 1fr 50px;
+    }
+    
+    .summaryField {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .fieldLabel {
+        min-width: auto;
+    }
+    
+    .stepNumber {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .medievalFrame {
+        height: 100vh;
+        margin: 0;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+    }
+    
+    .contentArea {
+        padding: 15px;
+    }
+    
+    .sectionTitle, .reviewTitle {
+        font-size: 1.6rem;
+    }
+    
+    .titleAccent {
+        font-size: 1.5rem;
+    }
+    
+    .nameInput {
+        font-size: 1.4rem;
+        padding: 20px;
+    }
+    
+    .classIcon {
+        font-size: 2.8rem;
+    }
+    
+    .className {
+        font-size: 1.5rem;
+    }
+    
+    .genderIcon {
+        font-size: 3rem;
+    }
+    
+    .genderName {
+        font-size: 1.6rem;
+    }
+    
+    .itemIcon {
+        font-size: 2.2rem;
+    }
+    
+    .itemName {
+        font-size: 1rem;
+    }
+    
+    .itemsGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cornerOrnament {
+        display: none;
+    }
+    
+    .exitButton {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-height: 800px) {
+    .characterModelContainer {
+        height: 200px;
+    }
+    
+    .genderModel {
+        height: 150px;
+    }
+    
+    .characterOutline {
+        height: 150px;
+    }
+    
+    .stepIndicator {
+        flex: 1;
+        min-width: 60px;
+    }
+    
+    .stepNumber {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+    
+    .stepLabel {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+.stepsContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.stepsContainer::-webkit-scrollbar-track {
+    background: rgba(20, 20, 20, 0.3);
+    border-radius: 4px;
+}
+
+.stepsContainer::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--gold-dark), var(--gold-primary));
+    border-radius: 4px;
+}
+
+.stepsContainer::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--gold-primary), var(--gold-secondary));
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .container {
+        position: static;
+        height: auto;
+        background: white;
+        color: black;
+    }
+    
+    .medievalFrame {
+        border: 2px solid black;
+        box-shadow: none;
+        background: white;
+    }
+    
+    .backgroundWrapper,
+    .ambientParticles,
+    .scrollDeco,
+    .exitButton {
+        display: none;
+    }
+}
+
+/* ===== PREFERS-REDUCED-MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .fogLayer,
+    .embers,
+    .ambientParticles,
+    .scrollDeco,
+    .classGlow,
+    .confirmGlow,
+    .modelAura,
+    .inputGlow {
+        animation: none;
+    }
+    
+    .classCard:hover,
+    .genderCard:hover,
+    .itemCard:hover,
+    .primaryButton:hover,
+    .secondaryButton:hover,
+    .confirmButton:hover,
+    .resetButton:hover {
+        transform: none;
+    }
+}
+ .floatingEmbers {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+ }
+ .ember {
+     position: absolute;
+     width: 2px;
+     height: 2px;
+     background: var(--ember);
+     border-radius: 50%;
+     filter: blur(1px);
+     animation: floatEmber 10s infinite linear;
+ }
+ @keyframes floatEmber {
+     0% { transform: translateY(100vh) rotate(0deg); }
+     100% { transform: translateY(-100px) rotate(360deg); }
+ }
