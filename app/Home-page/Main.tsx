@@ -9,6 +9,8 @@ import PixelSnow from './PixelSnow';
 import Loading from '../Components/Loading';
 import { Player } from '../Types/Player';
 import Getname from './Getinfoplayer';
+import Textloader from '../Components/Textloader';
+import { text1 } from '../Types/Sence';
 const defaultPlayer: Player = {
     name: "",
     class: "Knight",
@@ -34,6 +36,7 @@ export default function Main() {
   const [gettingname,setGettingname]=useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRefC = useRef<HTMLAudioElement>(null);
+  const [sence1,setSence1]=useState<boolean>(false);
   const savedhandler = () => {
     setSetting(false);
     audioRefC.current?.play();
@@ -95,6 +98,7 @@ export default function Main() {
     setPlaying(true);
     const time = setTimeout(() => {
       setPlaying(false);
+      setSence1(true);
     }, 5000);
     return ()=>clearTimeout(time);
   }
@@ -116,7 +120,7 @@ export default function Main() {
       </div>
       
       {/* Main content - transparent over PixelSnow */}
-      {!playing&&!gettingname&&<div className={styles.contentWrapper}>
+      {!playing&&!gettingname&&!sence1&&<div className={styles.contentWrapper}>
         <div className={styles.container}>
           <div className={styles.upper}>
             <button 
@@ -193,6 +197,9 @@ export default function Main() {
         gettingname&&<Getname player={player} setPlayer={setPlayer}
         Quit={abondencreating}
         Created={createdcharchter}/>
+      }
+      {
+        sence1&&<Textloader text={text1}/>
       }
       <audio 
             autoPlay

@@ -1,0 +1,141 @@
+/* Textloader.module.css */
+
+/* Page container */
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Main container with scroll */
+.container {
+  width: 90%;
+  max-width: 800px;
+  max-height: 70vh;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+.container.complete {
+  animation: completeGlow 2s ease-out;
+}
+
+/* Scrollbar styling */
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+
+/* Text content */
+.textContent {
+  font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+  color: #f0f0f0;
+  line-height: 1.8;
+  font-size: 1.2rem;
+}
+
+/* Paragraph styling */
+.paragraph {
+  margin-bottom: 1.5rem;
+  position: relative;
+  min-height: 1.5em;
+}
+
+/* Character animation */
+.char {
+  opacity: 0;
+  animation: charAppear 0.2s forwards;
+  animation-delay: var(--char-index, 0) * 0.05s;
+}
+
+
+/* Animations */
+@keyframes charAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
+  }
+}
+
+
+
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+}
+
+
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 2rem;
+    max-height: 80vh;
+  }
+  
+  .textContent {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+  
+  .container {
+    padding: 1.5rem;
+    width: 98%;
+  }
+  
+  .textContent {
+    font-size: 1rem;
+  }
+  
+  .cursor {
+    height: 1.1em;
+  }
+}
+
