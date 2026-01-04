@@ -1,4 +1,4 @@
-// ===== Getinfoplayer.tsx UPDATES =====
+
 import styles from './Getname.module.css';
 import { useState, useEffect, useCallback } from 'react';
 import { Player } from '../Types/Player';
@@ -149,7 +149,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
     };
 
     const currentStats = getCurrentStats();
-
+    
     return (
         <div className={styles.container}>
             {/* Background Atmospheric Elements */}
@@ -220,7 +220,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
                             <div className={styles.stepSection}>
                                 <div className={styles.sectionHeader}>
                                     <h2 className={styles.sectionTitle}>
-                                        WHAT IS THY NAME, UNKINDLED ONE?
+                                        WHAT IS THE NAME, UNKINDLED ONE?
                                     </h2>
                                     <p className={styles.sectionSubtitle}>A name that shall echo through the halls of Lordran</p>
                                 </div>
@@ -237,7 +237,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             className={styles.nameInput}
-                                            placeholder="Speak thy name..."
+                                            placeholder="Speak the name..."
                                             autoFocus
                                             autoComplete="off"
                                             spellCheck="false"
@@ -292,11 +292,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
                                             onClick={() => { 
                                                 setSelectedClass(val);
                                                 // Auto-advance after selection
-                                                setTimeout(() => {
-                                                    if (val === selectedClass) {
-                                                        goNext();
-                                                    }
-                                                }, 300);
+                                              
                                             }}
                                         >
                                             <div className={styles.classIcon}>

@@ -68,6 +68,8 @@ export default function Main() {
   }, [volume]);
 
   const started=()=>{
+    audioRefC.current?.play();
+    setSound(true);
     setPlaying(true);
     if(!Sound){
       audioRef.current?.play();
@@ -80,7 +82,23 @@ export default function Main() {
         
     return ()=>clearTimeout(time);
   }
-
+  const abondencreating =()=>{
+    setGettingname(false);
+    setPlaying(true);
+    const time = setTimeout(() => {
+      setPlaying(false);
+    }, 5000);
+    return ()=>clearTimeout(time);
+  }
+  const createdcharchter=()=>{
+    setGettingname(false);
+    setPlaying(true);
+    const time = setTimeout(() => {
+      setPlaying(false);
+    }, 5000);
+    return ()=>clearTimeout(time);
+  }
+  //evreything works well dont touch it at all now still only pass on top the begin idea is when charchter is done want to show compoennent typying from a to last a.length telling story need theme background to be black and only a guy telling story with text typing or only sound typing there is skip if skip all words appear then gone from first sence so yeah we will create first sence for first level no tutorial after it begin start the design logic of fight 
   return (
     <div className={styles.mainWrapper}>
       {/* PixelSnow as the ONLY background */}
@@ -172,7 +190,9 @@ export default function Main() {
         playing&&<Loading level={null}/>
       }
       {
-        gettingname&&<Getname player={player} setPlayer={setPlayer} Quit={()=>setGettingname(false)} Created={()=>setGettingname(false)}/>
+        gettingname&&<Getname player={player} setPlayer={setPlayer}
+        Quit={abondencreating}
+        Created={createdcharchter}/>
       }
       <audio 
             autoPlay
