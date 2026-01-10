@@ -9,6 +9,7 @@ interface GetInfoProps {
     Quit: () => void;
     setPlayer: React.Dispatch<React.SetStateAction<Player>>;
     player: Player;
+    clicked:()=>void;
 }
 
 // Define proper class stats type
@@ -44,7 +45,7 @@ const CLASS_DESCRIPTIONS: Record<string, string> = {
     "Thief": "Swift and agile. Quick strikes and evasion."
 };
 
-export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
+export default function GetName({ Created, Quit, setPlayer,clicked }: GetInfoProps) {
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [name, setName] = useState<string>('');
     const [selectedClass, setSelectedClass] = useState<string>('Knight');
@@ -59,12 +60,14 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
  
     const goNext = () => {
         if (currentStep < 5) {
+            clicked();
             setCurrentStep(prev => prev + 1);
         }
     };
 
     const goBack = () => {
         if (currentStep > 1) {
+            clicked();
             setCurrentStep(prev => prev - 1);
         }
     };
@@ -89,6 +92,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
     }, []);
 
     const reset = () => {
+        clicked();
         setCurrentStep(1);
         setName('');
         setSelectedClass('Knight');
@@ -97,6 +101,7 @@ export default function GetName({ Created, Quit, setPlayer }: GetInfoProps) {
     };
 
     const done = useCallback(() => {
+        clicked();
         const baseStats = ENHANCED_CLASS_STATS[selectedClass];
         const itemBonus = ITEM_BONUSES[selectedItem] || {};
         

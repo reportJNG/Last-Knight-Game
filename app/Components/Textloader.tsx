@@ -3,9 +3,11 @@ import styles from './Textloader.module.css';
 
 interface TextloaderProps {
   text: string;
+  endedtext:()=>void;
+  clicked:()=>void;
 }
 
-export default function Textloader({ text }: TextloaderProps) {
+export default function Textloader({ text,endedtext,clicked }: TextloaderProps) {
   const [position, setPosition] = useState<number>(0);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const audio = useRef<HTMLAudioElement>(null);
@@ -29,7 +31,8 @@ export default function Textloader({ text }: TextloaderProps) {
       setTimeout(() => {
         audio.current?.pause();
         setIsComplete(true);
-      }, 500);
+        endedtext();
+      }, 28500);
     }
   }, [position, text.length]);
   
@@ -64,7 +67,13 @@ export default function Textloader({ text }: TextloaderProps) {
     
     currentPosition += paragraph.length + 1; // +1 for the newline character
   }
-  
+
+  const skippedtext=()=>{//here player chooose to skip text
+      clicked();
+      setPosition(0);
+      setIsComplete(false);
+      endedtext();
+  }
   return (
     <div className={styles.pageContainer}>
       <div className={`${styles.container} ${isComplete ? styles.complete : ''}`} ref={containerRef}>
@@ -88,13 +97,15 @@ export default function Textloader({ text }: TextloaderProps) {
             </p>
           ))}
         </div>
-        <audio 
+        
+      </div>
+      <button className={styles.rightdownsc} onClick={skippedtext}><i className="fi fi-br-right"></i></button>
+      <audio 
           src="/typing-sound.mp3" 
           loop 
           ref={audio}
           preload="auto"
         />
-      </div>
     </div>
   );
 }

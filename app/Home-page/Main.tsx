@@ -30,7 +30,7 @@ export default function Main() {
   const [Setting, setSetting] = useState<boolean>(false);
   const [quit, setQuit] = useState<boolean>(false);
   const [goodtxt, setGoodtxt] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(0.5);
+  const [volume, setVolume] = useState<number>(0.2);
   const [playing,setPlaying]=useState<boolean>(false);  
   const [player, setPlayer] = useState<Player>(defaultPlayer);
   const [gettingname,setGettingname]=useState<boolean>(false);
@@ -86,6 +86,7 @@ export default function Main() {
     return ()=>clearTimeout(time);
   }
   const abondencreating =()=>{
+    audioRefC.current?.play();
     setGettingname(false);
     setPlaying(true);
     const time = setTimeout(() => {
@@ -102,7 +103,16 @@ export default function Main() {
     }, 5000);
     return ()=>clearTimeout(time);
   }
-  //evreything works well dont touch it at all now still only pass on top the begin idea is when charchter is done want to show compoennent typying from a to last a.length telling story need theme background to be black and only a guy telling story with text typing or only sound typing there is skip if skip all words appear then gone from first sence so yeah we will create first sence for first level no tutorial after it begin start the design logic of fight 
+  const endedtext=()=>{
+    setSence1(false);
+    setPlaying(true);
+    const time =setTimeout(() => {
+    setPlaying(false);
+    }, 5000);
+    return ()=>clearTimeout(time);
+  }
+  //new logic level 0 start here all work before work well done ;
+  
   return (
     <div className={styles.mainWrapper}>
       {/* PixelSnow as the ONLY background */}
@@ -176,7 +186,7 @@ export default function Main() {
             <div className={styles.modalOverlay}>
               <Quit 
                 no={() => {setQuit(false);audioRefC.current?.play();}} 
-                yes={() => window.open('https://remalihamza.vercel.app/','_self')}
+                yes={() => {audioRefC.current?.play();window.open('https://remalihamza.vercel.app/','_self')}}
               />
             </div>
           )}
@@ -196,10 +206,12 @@ export default function Main() {
       {
         gettingname&&<Getname player={player} setPlayer={setPlayer}
         Quit={abondencreating}
-        Created={createdcharchter}/>
+        Created={createdcharchter}
+        clicked={()=>audioRefC.current?.play()}
+        />
       }
       {
-        sence1&&<Textloader text={text1}/>
+        sence1&&<Textloader text={text1} endedtext={endedtext} clicked={()=>audioRefC.current?.play()}/>
       }
       <audio 
             autoPlay
