@@ -1,1 +1,334 @@
 @import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css');
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Pause Button (Top Right Corner) */
+.containerbtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.pausedbtn {
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pausedbtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, #764ba2 0%, #667eea 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pausedbtn:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.pausedbtn:hover::before {
+  opacity: 1;
+}
+
+.pausedbtn i {
+  color: white;
+  font-size: 24px;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.pausedbtn:hover i {
+  transform: scale(1.1);
+}
+
+/* Pause Overlay */
+.hiddenoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+}
+
+.sections {
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 20px;
+  padding: 2rem 3rem;
+  margin: 1rem 0;
+  width: 90%;
+  max-width: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sections:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.buttonresume {
+  background: linear-gradient(45deg, #10b981, #34d399);
+  color: white;
+  border: none;
+  padding: 1.2rem 3rem;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.buttonresume:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.buttonresume:active {
+  transform: scale(0.98);
+}
+
+.name {
+  color: #cbd5e1;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Volume Slider */
+.volumeSlider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 10px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.volumeSlider:hover {
+  opacity: 1;
+}
+
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 3px solid #667eea;
+  transition: all 0.2s ease;
+}
+
+.volumeSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.volumeSlider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 3px solid #667eea;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Music Toggle Buttons */
+.musicToggle {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.toggleButton {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #475569;
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.5);
+  color: #94a3b8;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.toggleButton.active {
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.toggleButton:not(.active):hover {
+  border-color: #64748b;
+  color: #e2e8f0;
+}
+
+.existbtn {
+  background: linear-gradient(45deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 1.2rem 3rem;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.existbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.existbtn:active {
+  transform: scale(0.98);
+}
+
+/* Confirmation Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pausedbtn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .title {
+    font-size: 3rem;
+  }
+  
+  .sections {
+    padding: 1.5rem 2rem;
+    margin: 0.8rem 0;
+  }
+  
+  .buttonresume,
+  .existbtn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerbtn {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .pausedbtn {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .sections {
+    padding: 1.2rem 1.5rem;
+  }
+  
+  .name {
+    font-size: 1.1rem;
+  }
+}

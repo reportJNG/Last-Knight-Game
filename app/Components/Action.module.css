@@ -1,0 +1,376 @@
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(0, 0, 0, 0.8) 20%,
+        rgba(0, 0, 0, 0.9)
+    );
+    border-top: 2px solid rgba(120, 120, 120, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gold decorative elements */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #b8860b,
+        #d4af37,
+        #b8860b,
+        transparent
+    );
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.buttonsContainer {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.buttonGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.attackGlow {
+    opacity: 0.6;
+    box-shadow: 
+        0 0 40px 20px rgba(180, 0, 0, 0.4),
+        inset 0 0 30px 10px rgba(180, 0, 0, 0.3);
+    background: radial-gradient(
+        circle at center,
+        rgba(180, 0, 0, 0.6) 0%,
+        transparent 70%
+    );
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.dodgeGlow {
+    opacity: 0.6;
+    box-shadow: 
+        0 0 40px 20px rgba(0, 100, 180, 0.4),
+        inset 0 0 30px 10px rgba(0, 100, 180, 0.3);
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 100, 180, 0.6) 0%,
+        transparent 70%
+    );
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.parryGlow {
+    opacity: 0.6;
+    box-shadow: 
+        0 0 40px 20px rgba(180, 150, 0, 0.4),
+        inset 0 0 30px 10px rgba(180, 150, 0, 0.3);
+    background: radial-gradient(
+        circle at center,
+        rgba(180, 150, 0, 0.6) 0%,
+        transparent 70%
+    );
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.actionButton {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: none;
+    background: linear-gradient(
+        145deg,
+        rgba(40, 40, 40, 0.9),
+        rgba(20, 20, 20, 0.95)
+    );
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonInner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+    z-index: 2;
+}
+
+.actionButton i {
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.buttonText {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(
+        to bottom,
+        #d4af37,
+        #b8860b,
+        #966c16
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.buttonBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(
+        145deg,
+        rgba(212, 175, 55, 0.4),
+        rgba(184, 134, 11, 0.2)
+    ) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+
+.hoverEffect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+/* Button-specific colors */
+.attackButton i {
+    color: #c41e3a;
+}
+
+.dodgeButton i {
+    color: #2a9fd6;
+}
+
+.parryButton i {
+    color: #d4af37;
+}
+
+/* Clickable state */
+.clickable:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.clickable:hover .hoverEffect {
+    left: 100%;
+}
+
+.clickable:hover i {
+    transform: scale(1.2);
+}
+
+.clickable:active {
+    transform: translateY(0) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* Unclickable state */
+.unclickable {
+    opacity: 0.5;
+    filter: grayscale(0.7);
+    cursor: not-allowed;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.unclickable .buttonText {
+    background: linear-gradient(
+        to bottom,
+        #666,
+        #444,
+        #222
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.buttonLabel {
+    margin-top: 1rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #d4af37;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Turn indicator */
+.turnIndicator {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+}
+
+.turnText {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4af37;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.turnIcon {
+    font-size: 1.8rem;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.turnIcon.active {
+    animation: pulseTurn 1.5s infinite alternate;
+}
+
+.turnIcon.inactive {
+    opacity: 0.7;
+    filter: grayscale(0.5);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+    0% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes pulseTurn {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    100% {
+        transform: scale(1.2);
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+    }
+}
+
+/* Fog effect */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(255, 255, 255, 0.03) 20%,
+        rgba(255, 255, 255, 0.01) 80%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .buttonsContainer {
+        gap: 1.5rem;
+    }
+    
+    .actionButton {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .buttonGlow {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .buttonText {
+        font-size: 0.8rem;
+    }
+}
+
+/* Particle effects (optional enhancement) */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
