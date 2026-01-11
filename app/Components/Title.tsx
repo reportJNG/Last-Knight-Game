@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './Bosshandler.module.css';
+import styles from './Title.module.css';
 
 interface BosshandlerProps {
     text: string;
@@ -7,7 +7,7 @@ interface BosshandlerProps {
     endedfight: boolean;
 }
 
-export default function Bosshandler({ text, winornot, endedfight }: BosshandlerProps) {
+export default function Title({ text, winornot, endedfight }: BosshandlerProps) {
     const [showTitle, setShowTitle] = useState(false);
     const [showResult, setShowResult] = useState(false);
 
