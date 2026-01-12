@@ -18,14 +18,33 @@ setSound: React.Dispatch<React.SetStateAction<boolean>>;
 leave: () => void;
 //fight stats boss and player
 Player:Player
-Boss:Player
 }
-export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,Player,Boss }:Mainhandlerprops){
-    //title values
+export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,Player }:Mainhandlerprops){
+    // Ineed here manin is player and boss to be states that always change
+    
+    //title variables
     const [fightindicator,setFightinficator]=useState<boolean>(false);
     const [testwinner,setTesetwinner]=useState<string>('');
-    //pause values 
+    //actions logic + variables
+    const [turn,setTurn]=useState<boolean>(true); //always player hit first
 
+    const attack = ()=>{
+
+    }
+    const doge=()=>{
+
+    }
+    const parry=()=>{
+
+    }
+    const healthplayerhanlder=async(health:number):Promise<boolean>=>{
+
+        return false;
+    }
+    const healthplayerhanler=async(health:number):Promise<boolean>=>{
+
+        return false;
+    }
     return(
         <div className={styles.container}>
 
@@ -40,10 +59,10 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
                 <Playerstats Player={Player} picture='/avatar-player.jpg'/>
                 </div>
                 <div className={styles.btweensections}>
-                <Actions/>
+                <Actions turn={turn}  setTurn={setTurn} Attack={attack} Parry={parry} Dodge={doge} />
                 </div>
                 <div className={styles.rightsectionboss}>
-                <Playerstats Player={Boss} picture={Bossurls[level]} />
+                <Playerstats Player={BOSSES[level]} picture={Bossurls[level]} />
                 </div>
             </div>
 
