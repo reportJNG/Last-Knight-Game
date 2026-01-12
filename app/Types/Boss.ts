@@ -1,4 +1,10 @@
-import { Player } from "./Player";
+export interface Player{
+    name:string,
+    class:string,
+    gender:string,
+    rareitem:string;
+    stats:{level:number;attack:number;health:number;speed:number};
+}
 
 export const BOSSES: Player[] = [
   {
@@ -37,3 +43,4 @@ export const BOSSES: Player[] = [
     stats: { level: 10, attack: 60, health: 150, speed: 90 }
   }
 ];
+export const Bossurls:string[]=[]

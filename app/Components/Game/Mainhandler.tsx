@@ -1,3 +1,12 @@
+import { BOSSES } from '@/app/Types/Boss';
+import styles from './Mainhandler.module.css';
+import Title from '../Title';
+import Pause from '../Pause';
+import { useState } from 'react';
+import Playerstats from '../Playerstats';
+import Actions from '../Actions';
+import { Player } from '@/app/Types/Player';
+import { Bossurls } from '@/app/Types/Boss';
 interface  Mainhandlerprops{
 //indicator
 level:number;
@@ -7,13 +16,11 @@ setVolume: React.Dispatch<React.SetStateAction<number>>;
 sound: boolean;
 setSound: React.Dispatch<React.SetStateAction<boolean>>;
 leave: () => void;
+//fight stats boss and player
+Player:Player
+Boss:Player
 }
-import { BOSSES } from '@/app/Types/Boss';
-import styles from './Mainhandler.module.css';
-import Title from '../Title';
-import Pause from '../Pause';
-import { useState } from 'react';
-export default function Mainhandler({level,volume, setVolume, sound, setSound, leave }:Mainhandlerprops){
+export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,Player,Boss }:Mainhandlerprops){
     //title values
     const [fightindicator,setFightinficator]=useState<boolean>(false);
     const [testwinner,setTesetwinner]=useState<string>('');
@@ -29,7 +36,15 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
 
 
             <div className={styles.body}>
-
+                <div className={styles.leftsectionplayer}>
+                <Playerstats Player={Player} picture='/avatar-player.jpg'/>
+                </div>
+                <div className={styles.btweensections}>
+                <Actions/>
+                </div>
+                <div className={styles.rightsectionboss}>
+                <Playerstats Player={Boss} picture={Bossurls[level]} />
+                </div>
             </div>
 
 
