@@ -9,6 +9,7 @@ import { Player } from '@/app/Types/Player';
 import { Bossurls } from '@/app/Types/Boss';
 import Backpack from '../Backpack';
 import Console from '../Console';
+
 interface  Mainhandlerprops{
 //indicator
 level:number;
@@ -23,12 +24,18 @@ P:Player
 //controll the xp leveling up
 xp:number
 }
+
+
+
 export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,P,xp }:Mainhandlerprops){
     // Put player and boss in changable value
     const updatedplayerxp = {...P,stats:{...P.stats,
     level:P.stats.level+xp,attack:P.stats.attack+xp,speed:P.stats.speed+xp}}
     const [Player,setPlayer]=useState<Player>(updatedplayerxp);
     const [Boss,setBoss]=useState<Player>(BOSSES[level]);
+
+
+
     //title variables
     const [fightindicator,setFightinficator]=useState<boolean>(false);
     const [testwinner,setTesetwinner]=useState<string>('');
@@ -37,24 +44,174 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     
     
     //actions logic + variables
+    
     const [turn,setTurn]=useState<boolean>(true); //always player hit first
 
-    const attack = ()=>{
+    //evrey actions might prevent a win or lose 
+
+    const attack = ()=>{ //here i need handle health not go under 0 + if he test if he is 0 then boss died and same for player
+    if(turn){
+        setBoss(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-Player.stats.attack);
+
+        if(newHealth===0){          //here player might win
+        setTesetwinner('win');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+    }
+    else{
+    setPlayer(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-Boss.stats.attack);
+
+        if(newHealth===0){      //here boss might win
+        setTesetwinner('lose');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+    }
+    }
+
+
+
+    const doge=()=>{ //doge logic is 60% ={if(yes){+30hp}if(no){-10 hp}} /// here we test health not go upper then max health and not below 0
+    const chance = Math.random()<0.6;        
+    if(turn){
+
+    if(chance){ //seccess doge player
+      setPlayer(prev=>{
+        const newHealth=Math.min(P.stats.health,prev.stats.health+30);
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+    }
+
+    else{   //failed doge player
+
+          setPlayer(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-10);
+
+        if(newHealth===0){      //here boss might win
+        setTesetwinner('lose');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
 
     }
-    const doge=()=>{
+    }
+    else{
+    if(chance){ //seccess doge boss
+        setBoss(prev=>{
+        const newHealth=Math.min(BOSSES[level].stats.health,prev.stats.health+30);
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+    }
+    else{   //failed doge boss
+
+           setBoss(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-10);
+
+        if(newHealth===0){      //here player might win
+        setTesetwinner('win');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
 
     }
-    const parry=()=>{
+    }
+    }
+
+
+
+    const parry=()=>{ //parry logic :{chance 50% always if (yes){attack+=20} else{health-=40}} //here only try to test if health doesnt go below 0
+    const chance = Math.random()<0.5;
+    if(turn){
+        //here start the chance calc   
+        if(chance){ //parry worked then here player hit strike+20
+        setBoss(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-(Player.stats.attack+20));
+
+        if(newHealth===0){          //here player might win
+        setTesetwinner('win');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});}
+
+        else{ //parry failed then boss hit player 40
+        setPlayer(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-40);
+
+        if(newHealth===0){      //here boss might win
+        setTesetwinner('lose');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+    
+        }
+    }
+    else{
+    if(chance){ //boss was able to parry attack +20
+    
+          setPlayer(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-(Boss.stats.attack+20));
+
+        if(newHealth===0){      //here boss might win
+        setTesetwinner('lose');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
 
     }
-    const healthplayerhanlder=async(health:number):Promise<boolean>=>{
+    else{//boss failed to parry -40 health
 
-        return false;
+    setBoss(prev=>{
+        const newHealth=Math.max(0,prev.stats.health-40);
+
+        if(newHealth===0){          //here player might win
+        setTesetwinner('win');
+        setFightinficator(true);
+                        }
+        return {
+            ...prev,stats:{
+               ...prev.stats,health:newHealth 
+            }
+        }});
+
     }
-    const healthplayerhanler=async(health:number):Promise<boolean>=>{
-
-        return false;
+    }
     }
 
 

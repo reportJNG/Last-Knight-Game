@@ -12,7 +12,6 @@ interface ActionsProps {
 export default function Actions({ Attack, Dodge, Parry, turn, setTurn }: ActionsProps) {
     
     const handleAction = (action: () => void) => {
-        if (!turn) return;
         action();
         setTurn(prev => !prev);
     };
