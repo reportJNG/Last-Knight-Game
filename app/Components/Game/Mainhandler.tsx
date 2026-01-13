@@ -48,6 +48,9 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     const [turn,setTurn]=useState<boolean>(true); //always player hit first
 
     //evrey actions might prevent a win or lose 
+    const gamestatehandler=(text:string,state:string,end:boolean)=>{
+        consoleupdater(text);
+    }
 
     const attack = ()=>{ //here i need handle health not go under 0 + if he test if he is 0 then boss died and same for player
     if(turn){
@@ -216,14 +219,25 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
 
 
     //backpacklogic + variables
-    const[quant,setQuant]=useState<number>(2); //each fight will have 2 potion to heal
+    const[quant,setQuant]=useState<number>(2); //each fight will have 2 potion to heal each potion add 50 health bonus
     const heal=()=>{
-
+        if(Player.stats.health===P.stats.health)return
+        else{
+            setPlayer(prev=>({
+                ...prev,stats:{
+                    ...prev.stats,
+                    health:Math.min(P.stats.health,prev.stats.health+50)
+                }
+            }))
+        }
     }
     //console text logic +vairables;
     const [consoletxt,setConsoletxt]=useState<string>('');
-    const consoleupdater=()=>{
-
+    const consoleupdater=(text:string)=>{
+        const time = setTimeout(() => {
+            setConsoletxt(text);
+        }, 3000);
+        return ()=>clearTimeout(time);
     }
     
     return(
