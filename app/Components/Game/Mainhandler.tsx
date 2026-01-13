@@ -2,7 +2,7 @@ import { BOSSES } from '@/app/Types/Boss';
 import styles from './Mainhandler.module.css';
 import Title from '../Title';
 import Pause from '../Pause';
-import { useState } from 'react';
+import {useState } from 'react';
 import Playerstats from '../Playerstats';
 import Actions from '../Actions';
 import { Player } from '@/app/Types/Player';
@@ -44,23 +44,86 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     
     
     //actions logic + variables
+    const combatText = {
+    turn: {
+    Player: "Your turn.",
+    Boss: "The enemy moves."
+    },
+    player: {
+    attack: "You strike.",
+    dodge: "You evade the attack.",
+    parry: "Perfect deflection.",
+    dogefails:"You falter. The boss's strike lands.",
+    parryfails:"Your timing fails. You are struck.",
+            },
+    enemy: {
+    attack: "The enemy strikes.",
+    dodge: "The enemy evades.",
+    parry: "Your attack is deflected.",
+    dogefails:"The boss falters. Your strike connects.",
+    parryfails:"The boss fails to parry. Your attack hits."
+            }
+    };
+    const updatedconsoletexting=(tester:boolean,action:1|2|3|4|5)=>{ //here is the updatedconsoletexting()
+        let tt='';
+        if(tester){
+            consoleupdater(combatText.turn.Player);
+            switch(action){
+            case 1:tt=combatText.player.parry;
+            break;
+            case 2:tt=combatText.player.dodge;
+            break;
+            case 3:tt=combatText.player.parry;
+            break;
+            case 4:tt=combatText.player.dogefails;
+            break;
+            case 5:tt=combatText.player.parryfails;
+            }
+        }
+        else{
+            consoleupdater(combatText.turn.Boss);
+            switch(action){
+            case 1:tt=combatText.enemy.parry;
+            break;
+            case 2:tt=combatText.enemy.dodge;
+            break;
+            case 3:tt=combatText.enemy.parry;
+            break;
+            case 4:tt=combatText.player.dogefails;
+            break;
+            case 5:tt=combatText.player.parryfails;
+            }
+        }
+        const time= setTimeout(() => {
+        consoleupdater(tt);
+        }, 1500);
+        return ()=>clearTimeout(time);
+    }
     
     const [turn,setTurn]=useState<boolean>(true); //always player hit first
 
     //evrey actions might prevent a win or lose 
     const gamestatehandler=(text:string,state:string,end:boolean)=>{
+        setTesetwinner(state);
+        setFightinficator(end);
         consoleupdater(text);
+        const time=setTimeout(() => {
+                consoleupdater(''); 
+        }, 3000);
+        return ()=>clearTimeout(time); //here means fight is ended  still logic of fight just started + fight just ended and transmisation
     }
 
     const attack = ()=>{ //here i need handle health not go under 0 + if he test if he is 0 then boss died and same for player
     if(turn){
+        
         setBoss(prev=>{
         const newHealth=Math.max(0,prev.stats.health-Player.stats.attack);
 
-        if(newHealth===0){          //here player might win
-        setTesetwinner('win');
-        setFightinficator(true);
-                        }
+        if(newHealth===0){//here player might win
+        gamestatehandler(`${P.name} Win`,'win',true);}
+        else{
+        updatedconsoletexting(turn,1);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -72,9 +135,10 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-Boss.stats.attack);
 
         if(newHealth===0){      //here boss might win
-        setTesetwinner('lose');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Died`,'lose',true);}
+        else{
+        updatedconsoletexting(turn,1);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -88,8 +152,8 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     const doge=()=>{ //doge logic is 60% ={if(yes){+30hp}if(no){-10 hp}} /// here we test health not go upper then max health and not below 0
     const chance = Math.random()<0.6;        
     if(turn){
-
-    if(chance){ //seccess doge player
+    if(chance){ //success doge player
+      updatedconsoletexting(turn,2);  
       setPlayer(prev=>{
         const newHealth=Math.min(P.stats.health,prev.stats.health+30);
         return {
@@ -100,14 +164,15 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     }
 
     else{   //failed doge player
-
-          setPlayer(prev=>{
+        
+        setPlayer(prev=>{
         const newHealth=Math.max(0,prev.stats.health-10);
 
         if(newHealth===0){      //here boss might win
-        setTesetwinner('lose');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Died`,'lose',true);}
+        else{
+        updatedconsoletexting(turn,4);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -118,6 +183,7 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
     }
     else{
     if(chance){ //seccess doge boss
+        updatedconsoletexting(turn,2);
         setBoss(prev=>{
         const newHealth=Math.min(BOSSES[level].stats.health,prev.stats.health+30);
         return {
@@ -132,9 +198,10 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-10);
 
         if(newHealth===0){      //here player might win
-        setTesetwinner('win');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Win`,'win',true);}
+        else{
+        updatedconsoletexting(turn,4);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -156,9 +223,8 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-(Player.stats.attack+20));
 
         if(newHealth===0){          //here player might win
-        setTesetwinner('win');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Win`,'win',true);}
+        updatedconsoletexting(turn,3);
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -170,9 +236,10 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-40);
 
         if(newHealth===0){      //here boss might win
-        setTesetwinner('lose');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Died`,'lose',true);}
+        else{
+        updatedconsoletexting(turn,5);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -188,9 +255,10 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-(Boss.stats.attack+20));
 
         if(newHealth===0){      //here boss might win
-        setTesetwinner('lose');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Died`,'lose',true);}
+        else{
+        updatedconsoletexting(turn,3);
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
@@ -204,18 +272,16 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         const newHealth=Math.max(0,prev.stats.health-40);
 
         if(newHealth===0){          //here player might win
-        setTesetwinner('win');
-        setFightinficator(true);
-                        }
+        gamestatehandler(`${P.name} Win`,'win',true);}
+        else{
+        updatedconsoletexting(turn,5);   
+        }
         return {
             ...prev,stats:{
                ...prev.stats,health:newHealth 
             }
         }});
-
-    }
-    }
-    }
+    }}};
 
 
     //backpacklogic + variables
