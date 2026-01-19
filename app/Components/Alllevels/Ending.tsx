@@ -1,5 +1,5 @@
 import styles from './Ending.module.css'
-
+import { useRouter } from 'next/navigation';
 interface Endingprops{
         level:number;
         bossname:string;
@@ -28,6 +28,12 @@ export default function Ending({level,bossname,beginnew,setSteps,combatstat}:End
         beginnew(); //start new journey fight
     }, 4000);
     }
+    const routes=useRouter();
+    const sendtoending= () =>{
+        setTimeout(() => {
+        routes.push('/theend');
+        }, 1000);
+    }
     return(
         <div className={styles.container}>
         {level!==4&&
@@ -37,16 +43,14 @@ export default function Ending({level,bossname,beginnew,setSteps,combatstat}:End
             {combatstat===0?goodTexts[level]:badTexts[level]}
             </p>   
             </div>
-            <button className={styles.btn} onClick={Handler}>Explore</button>
-        </div>}
+            <button className={styles.btn} onClick={Handler}>Explore</button></div>}
+        
         {level===4&&
         <div className={styles.finalboss}>
-        <div className={styles.normalboss}>
-            <div className={styles.bosstitle}>{combatstat===0?`You Killed ${bossname}`:`You Died To ${bossname}`}
+            <div className={styles.bosstitle}>{combatstat===0?`You Killed  ${bossname}`:`You Died To ${bossname}`}
             <p className={styles.description}>
             {combatstat===0?goodTexts[level]:badTexts[level]}
             </p>   
             </div>
-            <button className={styles.btn} onClick={Handler}>Explore</button>
-        </div>
-        </div>}</div>)}
+            <button className={styles.btn} onClick={sendtoending}>Bonfire</button>
+            </div>}</div>)}
