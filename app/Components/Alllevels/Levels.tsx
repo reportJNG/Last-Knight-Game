@@ -40,7 +40,7 @@ export default function Levels({level,volume, setVolume, sound, setSound, leave,
         <div className={styles.container}>
             {steps===1&&<Starting begin={stepshandler} leave={leave} bossname={BOSSES[level].name}/>}
             {steps===2&&<Mainhandler level={level}  volume={volume} setVolume={setVolume} sound={sound} setSound={setSound} leave={leave}P={P}xp={xp}setCombatStat={setCombatStat} stepshandler={stepshandler}/>}
-            {steps===3&&<Ending level={level} bossname={BOSSES[level].name} beginnew={beginnew} stepshandler={stepshandler}/>}
+            {steps===3&&<Ending level={level} bossname={BOSSES[level].name} beginnew={beginnew} setSteps={setSteps} combatstat={combatstat}/>}
         </div>
 
     )
