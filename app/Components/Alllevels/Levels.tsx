@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Player } from "@/app/Types/Player";
 import Starting from "./Starting";
 import Ending from "./Ending";
+import { BOSSES } from "@/app/Types/Boss";
 interface  Levelsprops{
 //indicator
 level:number;
@@ -14,31 +15,32 @@ sound: boolean;
 setSound: React.Dispatch<React.SetStateAction<boolean>>;
 leave: () => void;
 //fight stats boss and player
-P:Player
+P:Player;
 //controll the xp leveling up
-xp:number
+xp:number;
+//here player will start new fight 
+beginnew:()=>void;
+stepshandler:()=>void;
 }
 
 
 
 
-export default function Levels({level,volume, setVolume, sound, setSound, leave,P,xp}:Levelsprops){
+export default function Levels({level,volume, setVolume, sound, setSound, leave,P,xp,beginnew}:Levelsprops){
     //3 steps
-    const [step1,setStep1]=useState<boolean>(true);
-    const [step2,setStep2]=useState<boolean>(false);
-    const [step3,setStep3]=useState<boolean>(false);
+    const [steps,setSteps]=useState<number>(1);
     //combat stat indicator 
-    const [combatstat,setCombatStat]=useState<number>(2); // 2 always mean that fight didnt start yet
+    const [combatstat,setCombatStat]=useState<number>(2); // 2 always mean that fight didnt start yet 0=win 1 =lose
 
     const stepshandler=()=>{//stepshaandler will go from step to another
-
+        setSteps(prev=>prev+1);
     }
     return(
         
         <div className={styles.container}>
-            {step1&&<Starting/>}
-            {step2&&<Mainhandler level={level}  volume={volume} setVolume={setVolume} sound={sound} setSound={setSound} leave={leave}P={P}xp={xp}setCombatStat={setCombatStat}/>}
-            {step3&&<Ending/>}
+            {steps===1&&<Starting begin={stepshandler} leave={leave} bossname={BOSSES[level].name}/>}
+            {steps===2&&<Mainhandler level={level}  volume={volume} setVolume={setVolume} sound={sound} setSound={setSound} leave={leave}P={P}xp={xp}setCombatStat={setCombatStat} stepshandler={stepshandler}/>}
+            {steps===3&&<Ending level={level} bossname={BOSSES[level].name} beginnew={beginnew} stepshandler={stepshandler}/>}
         </div>
 
     )

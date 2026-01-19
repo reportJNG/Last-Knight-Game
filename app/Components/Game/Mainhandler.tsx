@@ -25,11 +25,12 @@ P:Player
 xp:number
 //indicator of fight is ended with 0 or 1  0===win || 1===lose
 setCombatStat:React.Dispatch<React.SetStateAction<number>>; // we will always push here 2 for indicator of the fight isnt started aleardy
+stepshandler:()=>void;
 }
 
 
 
-export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,P,xp,setCombatStat }:Mainhandlerprops){
+export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,P,xp,setCombatStat,stepshandler }:Mainhandlerprops){
     // Put player and boss in changable value
     const updatedplayerxp = {...P,stats:{...P.stats,
     level:P.stats.level+xp,attack:P.stats.attack+xp,speed:P.stats.speed+xp}}
@@ -113,13 +114,15 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
                 if(end===true){
                     if(state==='win'){
                         setCombatStat(0);
+                        stepshandler()
                     }
                     else{
                         setCombatStat(1);
+                        stepshandler()
                     }
                 }
                 consoleupdater(''); 
-        }, 3000);
+        }, 8000);
         return ()=>clearTimeout(time); //here means fight is ended  so will only update the combat stat so we know that the fight is ended
     }
 

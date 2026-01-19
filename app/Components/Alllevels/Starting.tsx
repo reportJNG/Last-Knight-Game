@@ -2,14 +2,15 @@ import styles from './Starting.module.css'
 
 interface Startingprops{
     begin:()=>void;
+    bossname:string;
     leave:()=>void;
 }
 
-export default function Starting(){
+export default function Starting({begin,bossname,leave}:Startingprops){
 
 
     return(
-        <div>
+        <div className={styles.container}>
 
         </div>
     )
