@@ -212,7 +212,21 @@ export default function Main() {
       }
       {
         sence1&&<Textloader text={text1} endedtext={endedtext} clicked={()=>audioRefC.current?.play()}/>
-      }
+      }{/**here the is the story line of the charchter  */}
+
+      {/**here should be full Game  */}
+
+
+
+
+
+
+
+
+
+
+
+
       <audio 
             autoPlay
             ref={audioRef} 

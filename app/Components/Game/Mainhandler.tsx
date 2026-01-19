@@ -21,13 +21,15 @@ setSound: React.Dispatch<React.SetStateAction<boolean>>;
 leave: () => void;
 //fight stats boss and player
 P:Player
-//controll the xp leveling up
+//controll the xp leveling up each level u increase the level max is 10 same value will goes for the stats
 xp:number
+//indicator of fight is ended with 0 or 1  0===win || 1===lose
+setCombatStat:React.Dispatch<React.SetStateAction<number>>; // we will always push here 2 for indicator of the fight isnt started aleardy
 }
 
 
 
-export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,P,xp }:Mainhandlerprops){
+export default function Mainhandler({level,volume, setVolume, sound, setSound, leave,P,xp,setCombatStat }:Mainhandlerprops){
     // Put player and boss in changable value
     const updatedplayerxp = {...P,stats:{...P.stats,
     level:P.stats.level+xp,attack:P.stats.attack+xp,speed:P.stats.speed+xp}}
@@ -108,9 +110,17 @@ export default function Mainhandler({level,volume, setVolume, sound, setSound, l
         setFightinficator(end);
         consoleupdater(text);
         const time=setTimeout(() => {
+                if(end===true){
+                    if(state==='win'){
+                        setCombatStat(0);
+                    }
+                    else{
+                        setCombatStat(1);
+                    }
+                }
                 consoleupdater(''); 
         }, 3000);
-        return ()=>clearTimeout(time); //here means fight is ended  still logic of fight just started + fight just ended and transmisation
+        return ()=>clearTimeout(time); //here means fight is ended  so will only update the combat stat so we know that the fight is ended
     }
 
     const attack = ()=>{ //here i need handle health not go under 0 + if he test if he is 0 then boss died and same for player
