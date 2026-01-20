@@ -4,10 +4,9 @@ interface Endingprops{
         level:number;
         bossname:string;
         beginnew:()=>void;
-        setSteps:React.Dispatch<React.SetStateAction<number>>;
         combatstat:number;
     }
-export default function Ending({level,bossname,beginnew,setSteps,combatstat}:Endingprops){
+export default function Ending({level,bossname,beginnew,combatstat}:Endingprops){
     const goodTexts: string[] = [
     "You fought well. The boss never stood a chance.",
     "Victory is yours. That was a clean kill.",
@@ -23,7 +22,6 @@ export default function Ending({level,bossname,beginnew,setSteps,combatstat}:End
     "The boss wins. Train harder and try again."
     ];
     const Handler = () =>{
-    setSteps(1); //reset the steps
     setTimeout(() => {
         beginnew(); //start new journey fight
     }, 4000);

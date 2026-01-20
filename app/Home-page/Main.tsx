@@ -11,6 +11,7 @@ import { Player } from '../Types/Player';
 import Getname from './Getinfoplayer';
 import Textloader from '../Components/Textloader';
 import { text1 } from '../Types/Sence';
+import Levels from '../Components/Alllevels/Levels';
 const defaultPlayer: Player = {
     name: "",
     class: "Knight",
@@ -108,10 +109,13 @@ export default function Main() {
     setPlaying(true);
     const time =setTimeout(() => {
     setPlaying(false);
+    setIngame(true);
     }, 5000);
     return ()=>clearTimeout(time);
   }
   //new logic level 0 start here all work before work well done ;
+  const [ingame,setIngame]=useState<boolean>(false);
+  const [level,setLevel]=useState<number>(0|1|2|4);
   
   return (
     <div className={styles.mainWrapper}>
@@ -130,7 +134,7 @@ export default function Main() {
       </div>
       
       {/* Main content - transparent over PixelSnow */}
-      {!playing&&!gettingname&&!sence1&&<div className={styles.contentWrapper}>
+      {!playing&&!ingame&&!gettingname&&!sence1&&<div className={styles.contentWrapper}>
         <div className={styles.container}>
           <div className={styles.upper}>
             <button 
@@ -214,9 +218,9 @@ export default function Main() {
         sence1&&<Textloader text={text1} endedtext={endedtext} clicked={()=>audioRefC.current?.play()}/>
       }{/**here the is the story line of the charchter  */}
 
-      {/**here should be full Game  */}
+      {/**here should be full Game  = alllevels */}
 
-
+      {ingame&&<Levels level={level} volume={volume} setVolume={setVolume} sound={Sound} setSound={setSound} leave={()=>setIngame(false)} P={player} />}
 
 
 

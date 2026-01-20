@@ -16,17 +16,13 @@ setSound: React.Dispatch<React.SetStateAction<boolean>>;
 leave: () => void;
 //fight stats boss and player
 P:Player;
-//controll the xp leveling up
-xp:number;
 //here player will start new fight 
-beginnew:()=>void;
-stepshandler:()=>void;
 }
 
 
 
 
-export default function Levels({level,volume, setVolume, sound, setSound, leave,P,xp,beginnew}:Levelsprops){
+export default function Levels({level,volume, setVolume, sound, setSound, leave,P}:Levelsprops){
     //3 steps
     const [steps,setSteps]=useState<number>(1);
     //combat stat indicator 
@@ -35,12 +31,15 @@ export default function Levels({level,volume, setVolume, sound, setSound, leave,
     const stepshandler=()=>{//stepshaandler will go from step to another
         setSteps(prev=>prev+1);
     }
+    const beginnew=()=>{
+            setSteps(1); //reset the steps
+    }
     return(
         
         <div className={styles.container}>
             {steps===1&&<Starting begin={stepshandler} leave={leave} bossname={BOSSES[level].name}/>}
-            {steps===2&&<Mainhandler level={level}  volume={volume} setVolume={setVolume} sound={sound} setSound={setSound} leave={leave}P={P}xp={xp}setCombatStat={setCombatStat} stepshandler={stepshandler}/>}
-            {steps===3&&<Ending level={level} bossname={BOSSES[level].name} beginnew={beginnew} setSteps={setSteps} combatstat={combatstat}/>}
+            {steps===2&&<Mainhandler level={level}  volume={volume} setVolume={setVolume} sound={sound} setSound={setSound} leave={leave} P={P} xp={level} setCombatStat={setCombatStat} stepshandler={stepshandler}/>}
+            {steps===3&&<Ending level={level} bossname={BOSSES[level].name} beginnew={beginnew}  combatstat={combatstat}/>}
         </div>
 
     )
