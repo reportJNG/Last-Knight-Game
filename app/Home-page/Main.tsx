@@ -1,29 +1,30 @@
-'use client'
-import Howtoplay from './Howtoplay';
-import styles from './Main.module.css';
-import { useEffect, useRef, useState } from 'react';
-import Settings from './Settings';
-import Quit from './Quit';
-import Message from '../Components/Message';
-import PixelSnow from './PixelSnow';
-import Loading from '../Components/Loading';
-import { Player } from '../Types/Player';
-import Getname from './Getinfoplayer';
-import Textloader from '../Components/Textloader';
-import { text1 } from '../Types/Sence';
-import Levels from '../Components/Alllevels/Levels';
+"use client";
+import Howtoplay from "./Howtoplay";
+import styles from "./Main.module.css";
+import { useEffect, useRef, useState } from "react";
+import Settings from "./Settings";
+import Quit from "./Quit";
+import Message from "../Components/Message";
+import PixelSnow from "./PixelSnow";
+import Loading from "../Components/Loading";
+import { Player } from "../Types/Player";
+import Getname from "./Getinfoplayer";
+import Textloader from "../Components/Textloader";
+import { text1 } from "../Types/Sence";
+import Levels from "../Components/Alllevels/Levels";
+import { Volume2Icon, VolumeOffIcon } from "lucide-react";
 const defaultPlayer: Player = {
-    name: "",
-    class: "Knight",
-    gender: "Male",
-    rareitem: "",
-    stats: {
-        level: 1,
-        health: 100,
-        attack: 50,
-        speed: 5
-    }
-  };
+  name: "",
+  class: "Knight",
+  gender: "Male",
+  rareitem: "",
+  stats: {
+    level: 1,
+    health: 100,
+    attack: 50,
+    speed: 5,
+  },
+};
 
 export default function Main() {
   const [Sound, setSound] = useState<boolean>(false);
@@ -32,12 +33,12 @@ export default function Main() {
   const [quit, setQuit] = useState<boolean>(false);
   const [goodtxt, setGoodtxt] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.2);
-  const [playing,setPlaying]=useState<boolean>(false);  
+  const [playing, setPlaying] = useState<boolean>(false);
   const [player, setPlayer] = useState<Player>(defaultPlayer);
-  const [gettingname,setGettingname]=useState<boolean>(false);
+  const [gettingname, setGettingname] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRefC = useRef<HTMLAudioElement>(null);
-  const [sence1,setSence1]=useState<boolean>(false);
+  const [sence1, setSence1] = useState<boolean>(false);
   const savedhandler = () => {
     setSetting(false);
     audioRefC.current?.play();
@@ -46,14 +47,13 @@ export default function Main() {
       setGoodtxt(false);
     }, 5000);
     return () => clearTimeout(time);
-  }
-   useEffect(() => {
+  };
+  useEffect(() => {
     if (audioRefC.current) {
-      audioRefC.current.playbackRate = 2.1; 
-      
+      audioRefC.current.playbackRate = 2.1;
     }
   }, []);
-  
+
   const toggleaudio = () => {
     if (audioRef.current) {
       if (Sound) {
@@ -62,66 +62,65 @@ export default function Main() {
         audioRef.current.play();
       }
     }
-    setSound(prev => !prev);
-  }
+    setSound((prev) => !prev);
+  };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
   }, [volume]);
 
-  const started=()=>{
+  const started = () => {
     audioRefC.current?.play();
     setSound(true);
     setPlaying(true);
-    if(!Sound){
+    if (!Sound) {
       audioRef.current?.play();
     }
     const time = setTimeout(() => {
       setGettingname(true);
       setPlaying(false);
-                            }, 5000);
-    
-        
-    return ()=>clearTimeout(time);
-  }
-  const abondencreating =()=>{
+    }, 5000);
+
+    return () => clearTimeout(time);
+  };
+  const abondencreating = () => {
     audioRefC.current?.play();
     setGettingname(false);
     setPlaying(true);
     const time = setTimeout(() => {
       setPlaying(false);
     }, 5000);
-    return ()=>clearTimeout(time);
-  }
-  const createdcharchter=()=>{
+    return () => clearTimeout(time);
+  };
+  const createdcharchter = () => {
     setGettingname(false);
     setPlaying(true);
     const time = setTimeout(() => {
       setPlaying(false);
       setSence1(true);
     }, 5000);
-    return ()=>clearTimeout(time);
-  }
-  const endedtext=()=>{
+    return () => clearTimeout(time);
+  };
+  const endedtext = () => {
     setSence1(false);
     setPlaying(true);
-    const time =setTimeout(() => {
-    setPlaying(false);
-    setIngame(true);
+    const time = setTimeout(() => {
+      setPlaying(false);
+      setIngame(true);
     }, 5000);
-    return ()=>clearTimeout(time);
-  }
+    return () => clearTimeout(time);
+  };
   //new logic level 0 start here all work before work well done ;
-  const [ingame,setIngame]=useState<boolean>(false);
-  const [level,setLevel]=useState<number>(0|1|2|4);
-  
+  const [ingame, setIngame] = useState<boolean>(false);
+  const [level, setLevel] = useState<number>(0 | 1 | 2 | 4);
+
   return (
     <div className={styles.mainWrapper}>
       {/* PixelSnow as the ONLY background */}
       <div className={styles.snowBackground}>
-        <PixelSnow 
+        <PixelSnow
           color="#ffffff"
           flakeSize={0.01}
           minFlakeSize={1.25}
@@ -132,117 +131,151 @@ export default function Main() {
           brightness={1}
         />
       </div>
-      
+
       {/* Main content - transparent over PixelSnow */}
-      {!playing&&!ingame&&!gettingname&&!sence1&&<div className={styles.contentWrapper}>
-        <div className={styles.container}>
-          <div className={styles.upper}>
-            <button 
-              className={styles.soundbtn} 
-              onClick={toggleaudio} 
-              aria-label={Sound ? "Mute audio" : "Unmute audio"}
-            >
-              {Sound ? "🔊" : "🔇"}
-            </button>
-            <h1 className={styles.gamename} data-text="Last Knight">Last Knight</h1>
-          </div>
-          
-          <div className={styles.main}>
-            <button className={styles.bigbuttonevents} onClick={started}>
-              <i className="fi fi-sr-two-swords"></i>Begin Quest
-            </button>
-            <button 
-              className={styles.bigbuttonevents} 
-              onClick={() => {setHowtoplay(true);audioRefC.current?.play(); }}
-            >
-              <i className="fi fi-bs-book-alt"></i> How To Play
-            </button>
-            <button 
-              className={styles.bigbuttonevents} 
-              onClick={() => {setSetting(true);audioRefC.current?.play();}}
-            >
-              <i className="fi fi-bs-gears"></i> Settings
-            </button>
-            <button className={styles.bigbuttonevents} onClick={() => {audioRefC.current?.play();window.open('https://remalihamza.vercel.app/','_blank')}}>
-              <i className="fi fi-ss-user-crown"></i> Visit Kingdom
-            </button>
-            <button 
-              className={styles.bigbuttonevents} 
-              onClick={() => {setQuit(true);audioRefC.current?.play();}}
-            >
-              <i className="fi fi-sr-entrance"></i>Exit Realm
-            </button>
-          </div>
-          
-          {howtoplay && (
-            <div className={styles.modalOverlay}>
-              <Howtoplay close={() => {setHowtoplay(false);audioRefC.current?.play();} }/>
+      {!playing && !ingame && !gettingname && !sence1 && (
+        <div className={styles.contentWrapper}>
+          <div className={styles.container}>
+            <div className={styles.upper}>
+              <button
+                className={styles.soundbtn}
+                onClick={toggleaudio}
+                aria-label={Sound ? "Mute audio" : "Unmute audio"}
+              >
+                {Sound ? <Volume2Icon /> : <VolumeOffIcon />}
+              </button>
+              <h1 className={styles.gamename} data-text="Last Knight">
+                Last Knight
+              </h1>
             </div>
-          )}
-          
-          {Setting && (
-            <div className={styles.modalOverlay}>
-              <Settings close={() => {setSetting(false);audioRefC.current?.play();}} saved={savedhandler} volume={volume} setVolume={setVolume}/>
+
+            <div className={styles.main}>
+              <button className={styles.bigbuttonevents} onClick={started}>
+                <i className="fi fi-sr-two-swords"></i>Begin Quest
+              </button>
+              <button
+                className={styles.bigbuttonevents}
+                onClick={() => {
+                  setHowtoplay(true);
+                  audioRefC.current?.play();
+                }}
+              >
+                <i className="fi fi-bs-book-alt"></i> How To Play
+              </button>
+              <button
+                className={styles.bigbuttonevents}
+                onClick={() => {
+                  setSetting(true);
+                  audioRefC.current?.play();
+                }}
+              >
+                <i className="fi fi-bs-gears"></i> Settings
+              </button>
+              <button
+                className={styles.bigbuttonevents}
+                onClick={() => {
+                  audioRefC.current?.play();
+                  window.open("https://remalihamza.vercel.app/", "_blank");
+                }}
+              >
+                <i className="fi fi-ss-user-crown"></i> Visit Kingdom
+              </button>
+              <button
+                className={styles.bigbuttonevents}
+                onClick={() => {
+                  setQuit(true);
+                  audioRefC.current?.play();
+                }}
+              >
+                <i className="fi fi-sr-entrance"></i>Exit Realm
+              </button>
             </div>
-          )}
-          
-          {quit && (
-            <div className={styles.modalOverlay}>
-              <Quit 
-                no={() => {setQuit(false);audioRefC.current?.play();}} 
-                yes={() => {audioRefC.current?.play();window.open('https://remalihamza.vercel.app/','_self')}}
+
+            {howtoplay && (
+              <div className={styles.modalOverlay}>
+                <Howtoplay
+                  close={() => {
+                    setHowtoplay(false);
+                    audioRefC.current?.play();
+                  }}
+                />
+              </div>
+            )}
+
+            {Setting && (
+              <div className={styles.modalOverlay}>
+                <Settings
+                  close={() => {
+                    setSetting(false);
+                    audioRefC.current?.play();
+                  }}
+                  saved={savedhandler}
+                  volume={volume}
+                  setVolume={setVolume}
+                />
+              </div>
+            )}
+
+            {quit && (
+              <div className={styles.modalOverlay}>
+                <Quit
+                  no={() => {
+                    setQuit(false);
+                    audioRefC.current?.play();
+                  }}
+                  yes={() => {
+                    audioRefC.current?.play();
+                    window.open("https://remalihamza.vercel.app/", "_self");
+                  }}
+                />
+              </div>
+            )}
+
+            {goodtxt && (
+              <Message
+                text="Settings Successfully Saved"
+                color="green"
+                comment="Enjoy your journey, chosen knight"
               />
-            </div>
-          )}
-          
-          {goodtxt && (
-            
-              <Message text='Settings Successfully Saved' color='green' comment='Enjoy your journey, chosen knight' />
-            
-          )}
-          
-          
+            )}
+          </div>
         </div>
-      </div>}
-      {
-        playing&&<Loading level={null}/>
-      }
-      {
-        gettingname&&<Getname player={player} setPlayer={setPlayer}
-        Quit={abondencreating}
-        Created={createdcharchter}
-        clicked={()=>audioRefC.current?.play()}
+      )}
+      {playing && <Loading level={null} />}
+      {gettingname && (
+        <Getname
+          player={player}
+          setPlayer={setPlayer}
+          Quit={abondencreating}
+          Created={createdcharchter}
+          clicked={() => audioRefC.current?.play()}
         />
-      }
-      {
-        sence1&&<Textloader text={text1} endedtext={endedtext} clicked={()=>audioRefC.current?.play()}/>
-      }{/**here the is the story line of the charchter  */}
+      )}
+      {sence1 && (
+        <Textloader
+          text={text1}
+          endedtext={endedtext}
+          clicked={() => audioRefC.current?.play()}
+        />
+      )}
+      {/**here the is the story line of the charchter  */}
 
       {/**here should be full Game  = alllevels */}
 
-      {ingame&&<Levels level={level} volume={volume} setVolume={setVolume} sound={Sound} setSound={setSound} leave={()=>setIngame(false)} P={player} />}
+      {ingame && (
+        <Levels
+          level={level}
+          volume={volume}
+          setVolume={setVolume}
+          sound={Sound}
+          setSound={setSound}
+          leave={() => setIngame(false)}
+          P={player}
+        />
+      )}
 
-
-
-
-
-
-
-
-
-
-      <audio 
-            autoPlay
-            ref={audioRef} 
-            src="/Mainmenu.mp3" 
-            loop 
-            hidden 
-          />
-           <audio 
-            ref={audioRefC} 
-            src="/Click.mp3"
-            hidden 
-          />
+      <audio autoPlay ref={audioRef} src="/Mainmenu.mp3" loop hidden />
+      <audio ref={audioRefC} src="/Click.mp3" hidden />
     </div>
   );
 }
