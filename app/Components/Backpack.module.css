@@ -1,8 +1,10 @@
-@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url("https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css");
 .container {
   position: relative;
   z-index: 100;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    sans-serif;
 }
 
 /* Backpack Button */
@@ -19,7 +21,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(102, 126, 234, 0.4),
     inset 0 2px 4px rgba(255, 255, 255, 0.2);
   cursor: pointer;
@@ -32,7 +34,7 @@
 
 .backpackbtn:hover {
   transform: scale(1.1) translateY(-5px);
-  box-shadow: 
+  box-shadow:
     0 15px 40px rgba(102, 126, 234, 0.6),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
@@ -48,7 +50,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -114,11 +117,15 @@
 
 /* Potions Container */
 .potionshandler {
-  background: linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95));
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 40, 0.95),
+    rgba(20, 20, 30, 0.95)
+  );
   border-radius: 24px;
   padding: 3rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   max-width: 400px;
@@ -129,16 +136,17 @@
 }
 
 .potionshandler::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(102, 126, 234, 0.6), 
-    rgba(118, 75, 162, 0.6), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 126, 234, 0.6),
+    rgba(118, 75, 162, 0.6),
     transparent
   );
 }
@@ -166,22 +174,20 @@
 .potionui i {
   font-size: 120px;
   color: #4ade80;
-  filter: 
-    drop-shadow(0 0 20px rgba(74, 222, 128, 0.4))
+  filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.4))
     drop-shadow(0 0 40px rgba(74, 222, 128, 0.2));
   margin-bottom: 1.5rem;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    filter: 
-      drop-shadow(0 0 20px rgba(74, 222, 128, 0.4))
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.4))
       drop-shadow(0 0 40px rgba(74, 222, 128, 0.2));
   }
   50% {
-    filter: 
-      drop-shadow(0 0 30px rgba(74, 222, 128, 0.6))
+    filter: drop-shadow(0 0 30px rgba(74, 222, 128, 0.6))
       drop-shadow(0 0 60px rgba(74, 222, 128, 0.3));
   }
 }
@@ -199,7 +205,7 @@
 }
 
 .numberpotions::after {
-  content: 'Potions';
+  content: "Potions";
   position: absolute;
   top: 100%;
   left: 50%;
@@ -228,7 +234,7 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(74, 222, 128, 0.3),
     inset 0 2px 4px rgba(255, 255, 255, 0.2);
   position: relative;
@@ -236,15 +242,16 @@
 }
 
 .btnclick::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
     transparent
   );
   transition: left 0.6s ease;
@@ -252,7 +259,7 @@
 
 .btnclick:hover {
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 15px 40px rgba(74, 222, 128, 0.5),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
@@ -263,7 +270,7 @@
 
 .btnclick:active {
   transform: translateY(0);
-  box-shadow: 
+  box-shadow:
     0 5px 20px rgba(74, 222, 128, 0.3),
     inset 0 2px 4px rgba(255, 255, 255, 0.2);
 }
@@ -284,21 +291,17 @@
   box-shadow: none;
 }
 
-/* Empty state animation */
-.potionui:has(.numberpotions:empty),
-.potionui:has(.numberpotions:contains("0")) {
-  animation: shake 0.5s ease;
-}
-
-.potionui:has(.numberpotions:contains("0")) i {
-  filter: grayscale(0.8) brightness(0.5);
-  animation: none;
-}
-
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 /* Responsive Design */
@@ -307,32 +310,32 @@
     bottom: 1.5rem;
     right: 1.5rem;
   }
-  
+
   .backpackbtn {
     width: 60px;
     height: 60px;
   }
-  
+
   .backpackbtn i {
     font-size: 24px;
   }
-  
+
   .X {
     top: 1.5rem;
     right: 1.5rem;
     width: 45px;
     height: 45px;
   }
-  
+
   .potionshandler {
     padding: 2rem;
     width: 85%;
   }
-  
+
   .potionui i {
     font-size: 100px;
   }
-  
+
   .numberpotions {
     font-size: 3.5rem;
   }
